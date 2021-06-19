@@ -1,0 +1,301 @@
+{% load static %}
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="{% static 'dist/img/admin.png' %}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p>{% if request.user.first_name  or request.user.last_name %} {{ request.user.first_name }}
+                {{ request.user.last_name }} {% else %} {{ request.user.username }} {% endif %}</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN FEATURES</li>
+        <li >
+            <a href="{% url 'dashboard' %}">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                
+            </span>
+            </a>
+        </li>
+
+        
+        {% if perms.base.add_user or perms.base.change_user or perms.base.view_user or perms.base.delete_user%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-users"></i>
+                <span>Users</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+
+
+            <ul class="treeview-menu">
+                {% if perms.base.add_user %}<li><a href="{% url 'add_user' %}"><i class="fa fa-circle-o"></i> Add User</a></li>{%endif%}
+                <li><a href="{% url 'manageuser' %}"><i class="fa fa-circle-o"></i> Manange User</a></li>
+               
+            </ul>
+        </li>
+        {% endif %}
+
+
+        {% if perms.base.add_group or perms.base.change_group or perms.base.view_group or perms.base.delete_group%}
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>Groups</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                {% if perms.base.add_group %}<li><a href="{% url 'add_group' %}"><i class="fa fa-circle-o"></i> Add Groups</a></li>{%endif%}
+                {% if perms.base.view_group %} <li><a href="{% url 'manageGroup' %}"><i class="fa fa-circle-o"></i> All Groups</a></li>{%endif%}
+              
+            </ul>
+        </li>
+        {% endif %}
+
+        <!-- {% if perms.base.add_brand or perms.base.change_brand or perms.base.view_brand or perms.base.delete_brand%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-first-order"></i>
+                <span>Brands</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                {%if perms.base.add_group%}<li><a href="{% url 'add_group' %}"><i class="fa fa-circle-o"></i> Add Brands</a></li>{%endif%}
+                {%if perms.base.view_group%}<li><a href="{% url 'manageGroup' %}"><i class="fa fa-circle-o"></i> Manage Brands</a></li>{%endif%}
+              
+            </ul>
+        </li>
+        {%endif%} -->
+
+        {% if perms.base.add_category or perms.base.change_category or perms.base.view_category or perms.base.delete_category%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>Category</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+
+
+            <ul class="treeview-menu">
+                {% if perms.base.add_category %}<li><a href="{% url 'create_category' %}"><i class="fa fa-circle-o"></i> Add Category</a></li>{%endif%}
+                {% if perms.base.view_category %}<li><a href="{% url 'category_list' %}"><i class="fa fa-circle-o"></i> All Category</a></li>{%endif%}
+                <!-- <li><a href="{% url 'create_list_tag' %}"><i class="fa fa-circle-o"></i> All Tag</a></li> -->
+            </ul>
+        </li>
+        {%endif%}
+
+        <!-- {% if perms.base.add_store or perms.base.change_store or perms.base.view_store or perms.base.delete_store%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>Stores</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                {% if perms.base.add_store %}<li><a href="{% url 'inventory_create' %}"><i class="fa fa-circle-o"></i> Add Inventory</a></li>{%endif%}
+                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i> All Inventory</a></li>
+            </ul>
+        </li>
+      {%endif%} -->
+
+      <!-- {% if perms.base.add_attribute or perms.base.change_attribute or perms.base.view_attribute or perms.base.delete_attribute%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-files-o"></i>
+                <span>Attributes</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                {% if perms.base.add_inventory %}<li><a href="{% url 'inventory_create' %}"><i class="fa fa-circle-o"></i> Add Inventory</a></li>{%endif%}
+                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i> All Inventory</a></li>
+            </ul>
+        </li>
+        {% endif %} -->
+
+        {% if perms.base.add_product or perms.base.change_product or perms.base.view_product or perms.base.delete_product%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-product-hunt"></i>
+                <span>Product</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                
+                {% if perms.base.add_product %}<li><a href="{% url 'product_create' %}"><i class="fa fa-circle-o"></i> Add Product</a></li>{% endif %}
+                {% if perms.base.view_product %}<li><a href="{% url 'product_list' %}"><i class="fa fa-circle-o"></i> All Products</a></li>{% endif %}
+                
+            </ul>
+        </li>
+        {% endif %}
+
+
+
+
+
+
+
+
+        {% if perms.base.add_product or perms.base.change_product or perms.base.view_product or perms.base.delete_product%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-product-hunt"></i>
+                <span>Alerts</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                
+                {% if perms.base.view_product %}<li><a href="{% url 'low-product' %}"><i class="fa fa-circle-o"></i> Low Products</a></li>{% endif %}
+                {% if perms.base.view_product %}<li><a href="/expireProduct"><i class="fa fa-circle-o"></i> Expiry Products</a></li>{% endif %}
+            </ul>
+        </li>
+        {% endif %}
+
+
+
+        {% if perms.base.add_product or perms.base.change_product or perms.base.view_product or perms.base.delete_product%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-product-hunt"></i>
+                <span>Predictions</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                
+                {% if perms.base.view_product %}<li><a href="/topSellingProduct"><i class="fa fa-circle-o"></i> Top Selling Products</a></li>{% endif %}
+                {% if perms.base.view_product %}<li><a href="/lowSellingproduct"><i class="fa fa-circle-o"></i> Low Selling Products</a></li>{% endif %}
+                {% if perms.base.view_product %}<li><a href="/eventSellingproduct"><i class="fa fa-circle-o"></i> Event Selling Products</a></li>{% endif %}
+            </ul>
+        </li>
+        {% endif %}
+
+
+
+        {% if perms.base.add_order or perms.base.change_order or perms.base.view_order or perms.base.delete_order%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-usd"></i>
+                <span>Orders</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                
+                {% if perms.base.add_order %}<li><a href="/add_order"><i class="fa fa-circle-o"></i> Add Order</a></li>{%endif%}
+                {% if perms.base.view_order %}<li><a href="/viewOrder"><i class="fa fa-circle-o"></i> All Orders</a></li>{%endif%}
+            </ul>
+        </li>
+        {% endif %}
+
+        <!-- {% if perms.base.add_inventory or perms.base.change_inventory or perms.base.view_inventory or perms.base.delete_inventory%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>Reports</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                {% if perms.base.add_inventory %}<li><a href="{% url 'inventory_create' %}"><i class="fa fa-circle-o"></i> Add Inventory</a></li>{%endif%}
+                <li><a href="{% url 'inventory_list' %}"><i class="fa fa-circle-o"></i> All Inventory</a></li>
+            </ul>
+        </li>
+
+        {%endif%} -->
+
+        <!-- {% if perms.base.add_company or perms.base.change_company or perms.base.view_company or perms.base.delete_company%}
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-files-o"></i> <span>Company</span>
+                <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
+        {%endif%} -->
+
+        {% if perms.base.add_user or perms.base.change_user or perms.base.view_user or perms.base.delete_user%}
+        <li class=" active treeview">
+            <a href="#">
+                <i class="fa fa-usd"></i>
+                <span>Profile</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                
+                {% if perms.base.view_user %}<li><a href="{% url 'user_profile' user.pk %}"><i class="fa fa-circle-o"></i> View Profile</a></li>{% endif %}
+                
+            </ul>
+        </li>
+        {% endif %}
+
+
+        <!-- {% if perms.base.add_user or perms.base.change_user or perms.base.view_user or perms.base.delete_user%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-first-order"></i>
+                <span>POS</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{% url 'pos_view' %}"><i class="fa fa-circle-o"></i> Create Order</a></li>
+                <li><a href="{% url 'order_information' %}"><i class="fa fa-circle-o"></i> Order Record</a></li>
+            </ul>
+        </li>
+        {%endif%} -->
+
+        <!-- {% if perms.base.add_user or perms.base.change_user or perms.base.view_user or perms.base.delete_user%}
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-gears"></i>
+                <span>Setting</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Password Change</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Add User</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> All User</a></li>
+            </ul>
+        </li>
+        {%endif%} -->
+
+        <li >
+            <a href="/logout">
+                <i class="fa fa-sign-out"></i> <span>Log Out</span>
+                
+            </span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- /.sidebar -->

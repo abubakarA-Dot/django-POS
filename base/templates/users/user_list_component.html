@@ -1,0 +1,40 @@
+<div class="box-body">
+
+    {% if users %}
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Serial Number</th>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                {% if perms.base.delete_user or perms.base.change_user %}
+                <th class="text-center">Action</th>
+                {% endif %}
+            </tr>
+            {% for obj in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ obj.id }}</td>
+                    <td>{{ obj.username }}</td>
+                    <td>{{ obj.email }}</td>
+                    <td>{{ obj.first_name }}</td>
+                    <td>{{ obj.last_name }}</td>
+                    <td class="text-center">
+                        {% if perms.base.change_product %}
+                        <a class="btn btn-info btn-sm" href="{% url 'user_update' obj.pk %}"><i class="fa fa-pencil"></i></a>
+                        {% endif %}
+                        {% if perms.base.delete_user %}
+                        <a class="btn btn-danger btn-sm" href="/user-delete/{{obj.username}}"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h2>Users not added yet</h2>
+    {% endif %}
+</div>

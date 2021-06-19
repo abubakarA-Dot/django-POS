@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Group|| Inventory {% endblock %}
+
+{% block content %}
+{% include 'groups/page_header.html' %}
+
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+
+          <div class="col">
+
+            <div class="row py-1">
+              <h3 class="box-title">Add Groups</h3> <br>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <label for="fname" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Group Name</label>
+              <input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" >
+
+          </div>
+          <br>
+        </div>
+        <div class="box-body">
+
+          {{form.errors}}
+          <table class="table font-weight-normal">
+            <thead>
+              <tr>
+                <th scope="col">Permission</th>
+                <th scope="col">Create</th>
+                <th scope="col">Update</th>
+                <th scope="col">Veiw</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">User</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userView"> </td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userDelete"></td>
+              </tr>
+
+              <tr>
+                <th scope="row">Groups</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupDelete"></td>
+              </tr>
+              <tr>
+              <tr>
+              <tr>
+                <th scope="row">Category</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryDelete"></td>
+              </tr>
+              <tr>
+            
+              <tr>
+              
+              <tr>
+              <tr>
+                <th scope="row">Products</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsDelete"></td>
+              </tr>
+              <tr>
+              <tr>
+                <th scope="row">Orders</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersDelete"></td>
+              </tr>
+              <tr>
+              
+              <tr>
+             
+              <tr>
+              <tr>
+                <th scope="row">Profile</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileDelete"></td>
+              </tr>
+              <tr>
+              <tr>
+                <th scope="row">Setting</th>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="settingsCreate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="settingsUpdate"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="settingsView"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="settingsDelete"></td>
+              </tr>
+              <tr>
+
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-info"> Update Group</button>
+          <button type="submit" class="btn btn-warning"> Back</button>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  tr,
+  td {
+    font-size: small !important;
+    font-weight: 600 !important;
+  }
+</style>
+{% endblock %}

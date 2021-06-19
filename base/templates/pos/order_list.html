@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Inventory || Order Record {% endblock %}
+
+{% block content %}
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="box-title">List of Order</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Order Name</th>
+                                <th>Customer Name</th>
+                                <th>Task</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                            {% if order %}
+                                {% for obj in order %}
+                                    <tr>
+                                        <td>{{ obj.products }}</td>
+                                        <td>{{ obj.orderItem.full_name }}</td>
+                                        <td>{{ obj.products }}</td>
+                                        <td>{{ obj.price }}</td>
+                                        <td>{{ obj.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

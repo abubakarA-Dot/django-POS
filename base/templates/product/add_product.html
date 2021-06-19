@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %} Add new Product {% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1> Dashboard <small>Add new Category</small></h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Category</li>
+        </ol>
+    </section>
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="box-title">Add New Product</h3>
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                <a title="Category list" data-toggle="tooltip" data-placement="left"
+                                   class="btn btn-info btn-sm" href="{% url 'category_list' %}">
+                                    <i class="fa fa-list"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% include 'common/message.html' %}
+                    </div>
+                    <div class="box-body">
+                        <form method="POST"> 
+                            <!-- enctype="multipart/form-data" -->
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Product Name</label>
+                                        {{ productForm.product_name }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Product Category</label>
+                                        {{ productForm.category_id }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Product Price</label>
+                                        {{ productForm.Price }}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="name">Manufactor Date</label>
+                                            {{ productForm.manufactor_date }}
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Expiry Price</label>
+                                        {{ productForm.expiry_date }}
+                                    </div>
+                                </div>
+                                 <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Stock</label>
+                                        {{ productForm.stock }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Count Sold</label>
+                                        {{ productForm.count_sold }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Quantity</label>
+                                        {{ productForm.Quantity }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    {{ productForm.description }}
+                                </div>
+                            </div>
+                            <br/>
+                            <button class="btn btn-success" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

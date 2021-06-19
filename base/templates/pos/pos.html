@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %} Inventory || POS {% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+        .item_list img {
+            width: 100%;
+        }
+    </style>
+
+    <div class="content">
+        <div class="row">
+
+            <div class="col-md-7">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#Category0" data-toggle="tab">Clothes</a></li>
+                        <li><a href="#Category1" data-toggle="tab">Cellphone</a></li>
+                        <li><a href="#category2" data-toggle="tab">Jewelry</a></li>
+                        <li><a href="#category3" data-toggle="tab">Laptop</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="Category0">
+                            <div class="item_list">
+                                <div class="row">
+                                    {% if cosmetic %}
+                                        {% for obj in cosmetic %}
+                                            <div class="col-lg-3">
+                                                <a href="{% url 'cart_add' obj.id %}">
+                                                    <img src="{{ obj.product_image.url }}" alt="">
+                                                    <h5 class="box-title">{{ obj.title }}</h5>
+                                                </a>
+                                                <p class="box-comment">$ {{ obj.price }}</p>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="Category1">
+                            <div class="item_list">
+                                <div class="row">
+                                    {% if tech %}
+                                        {% for obj in tech %}
+                                            <div class="col-lg-3">
+                                                <a href="{% url 'cart_add' obj.id %}">
+                                                    <img src="{{ obj.product_image.url }}" alt="">
+                                                    <h5 class="box-title">{{ obj.title }}</h5>
+                                                </a>
+                                                <p class="box-comment">$ {{ obj.price }}</p>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="category2">
+                            <div class="item_list">
+                                <div class="row">
+                                    {% if food %}
+                                        {% for obj in food %}
+                                            <div class="col-lg-3">
+                                                <a href="{% url 'cart_add' obj.id %}">
+                                                    <img src="{{ obj.product_image.url }}" alt="">
+                                                    <h5 class="box-title">{{ obj.title }}</h5>
+                                                </a>
+                                                <p class="box-comment">$ {{ obj.price }}</p>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="category3">
+                            <div class="item_list">
+                                <div class="row">
+                                    {% if laptop %}
+                                        {% for obj in laptop %}
+                                            <div class="col-lg-3">
+                                                <a href="{% url 'cart_add' obj.id %}">
+                                                    <img src="{{ obj.product_image.url }}" alt="">
+                                                    <h5 class="box-title">{{ obj.title }}</h5>
+                                                </a>
+                                                <p class="box-comment">$ {{ obj.price }}</p>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        <div class="box-header">
+                            <h4 class="box-title">12:00 PM</h4>
+                        </div>
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h3 class="box-title">Default Customer</h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <h3 class="box-title"><a href="#"><i class="fa fa-plus"></i></a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Del</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        {% for item in cart %}
+                                            {% with product=item.product %}
+                                                <td>{{ product.title }}</td>
+                                                <td>{{ product.price }}</td>
+                                                <td>
+                                                    <form action="{% url 'cart_updated' product.id %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input style="width: 30px" type="number" name="number"
+                                                               value="{{ item.update_quantity_form.quantity }}" min="1">
+                                                        <button type="submit" class="btn btn-success btn-sm">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'cart_remove' product.id %}"
+                                                       title="cancel" class="icon"><i
+                                                            class="fa fa-trash-o"></i></a>
+                                                </td>
+                                                </tr>
+                                            {% endwith %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary" href="{% url 'bulling_information' %}">Pay</a>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p>Net Total: ৳{{ cart.get_total_price }}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

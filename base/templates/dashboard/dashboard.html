@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Dashboard || POS {% endblock %}
+
+{% block content %}
+    <!-- page-header -->
+    {% include 'dashboard/page-header.html' %}
+    <!-- End page-header -->
+
+    <!-- main-content -->
+    
+    <div class="content">
+        {% for stock in stocks %}
+            {% if stock.stock < 5 %}
+        <div class="alert alert-warning" role="alert">
+            You Have Low Stock of Some Products To view <a href="{% url 'low-product' %}">Click here</a>
+          </div>
+            {% endif %}
+        {% endfor %}
+
+            {% for msg in messages %}
+        <div class="alert alert-warning" role="alert">
+            {{msg}} <a href="{% url 'expire-Product' %}">Click here</a>
+        </div>
+          
+            {% endfor %}
+    
+
+
+        <div class="row">
+          
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        
+                        <h3>{{ category.count }}</h3>
+                        
+
+                        <p>Total Category</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="{% url 'category_list' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-blue">
+                    <div class="inner">
+                        <h3>{{ order.count }}</h3>
+
+                        <p>Total Orders</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'view-order' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        
+                        <h3>{{ users.count }}</h3>
+
+                        <p>User</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="{% url 'manageuser' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-orange">
+                    <div class="inner">
+                        <h3>{{ group.count }}</h3>
+                        <p>Total Groups</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="{% url 'manageGroup' %}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End main-content -->
+
+{% endblock %}
