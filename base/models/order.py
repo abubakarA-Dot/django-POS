@@ -11,9 +11,6 @@ class Order(BaseEntity):
     phn_number = models.CharField(max_length=14, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=150, blank=True, null=True)
-   
-   
-   
 
     def __str__(self):
         return f'{self.id} {self.full_name}'

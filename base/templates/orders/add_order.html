@@ -16,71 +16,269 @@
             <div class="row py-1">
               <h3 class="box-title">Add Orders</h3> <br>
             </div>
-            <button onclick="onAddWebsite(event)" class="btn"><i class="fa fa-plus"></i></button>
-            <form method="POST" enctype="multipart/form-data" action="add_order" id="invoice_form" data-cities-url={% url 'load-price' %}>
-
-              <div class="row justify-content-end">
-               
+            <button id="plus" class="btn"><i class="fa fa-plus"></i></button>
+            <form method="post" id="create-form" action="">
+              {% csrf_token %}
+            <div id="wrapper" class="row">
+              <div class="col-2 col-lg-2 mb-1">
+                <div class="form-group">
+                  <div class="controls">
+                    <label for="product-1">Product <span class="required">*</span></label>
+                    <select id="product-1" name="product[]" maxlength="100" class="product form-control" required>
+                      <option value selected>Select Product</option>
+                      {% for product in products %}
+                      <option value="{{ product.id }}">{{ product.product_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
               </div>
-                {% csrf_token %}
-                
-                
-                  <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product Serial Number</th>
-                      <th scope="col">Product O ID</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Event Name</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Rate</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody id="tbody">
-                   
-                    
-                    <tr id="fields">
-                      <td scope="row">{{forloop.counter}}</td>
-                      <td scope="row">{{form.id}}</td>
-                      <td scope="row">{{form.Product_id}}</td>
-                     
-                      <td scope="row">{{form.Event_Name}}</td>
-                      <td>{{form.sold_Quantity}}</td>
-                      <td>{{ form.price }}</td>
-                      <td>{{form.total_price}}</td>
-                      <td><a href="#" class="deleteBtn btn" id="delete" onclick="onDeleteRow(event)" >-</a></td>
-                    </tr>
-                    
-                  </tbody>
 
+              <div class="col-2 col-lg-2 mb-1">
+                <div class="form-group">
+                  <div class="controls">
+                    <label>Events</label>
+                    <select name="event[]" maxlength="100" class="event form-control">
+                      <option value selected>Select Event</option>
+                      {% for event in events %}
+                      <option value="{{ event.id }}">{{ event.event_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-                </table>
-                    
-                    
-                  </tbody>
+              <div class="col-1 col-lg-1 mb-1">
+                <div class="form-group">
+                  <div class="controls">
+                    <label>Quantity</label>
+                    <input type="number" name="quantity[]" maxlength="100" class="form-control" id="quantity-1" required>
+                  </div>
+                </div>
+              </div>
 
+              <div class="col-2 col-lg-2 mb-1">
+                <div class="form-group">
+                  <div class="controls">
+                    <label>Rate</label>
+                    <input type="number" name="rate[]" maxlength="100" class="form-control" id="rate-1" readonly>
+                  </div>
+                </div>
+              </div>
 
-                </table>
-                  <div class="row">
-                    
-                    <div class="offset-8 col-2 offset-2">Gross Amount<input type="number" name="gamount" id="gamount"></div>
+              <div class="col-2 col-lg-2 mb-1">
+                <div class="form-group">
+                  <div class="controls">
+                    <label>Amount</label>
+                    <input type="number" name="amount[]" maxlength="100" class="form-control" id="amount-1" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" id="create" class="btn btn-primary">Save Order</button>
+            </form>
+            <div class="row">
+
+                    <div class="offset-8 col-2 offset-2">Gross Amount<input type="number" name="grand-total" id="grand-total"></div>
                   </div>
                   <div class="row">
-                    
-                    <div class="offset-8 col-2 offset-2">Date {{form.date_time}}</div>
+
+<!--                    <div class="offset-8 col-2 offset-2">Date {{form.date_time}}</div>-->
                   </div>
-                  <div class="row">
-                    <div class="offset-8 col-2 offset-2">Net Amount<input type="number" name="namount" id="namount"></div>
-                  </div>
+<!--                  <div class="row">-->
+<!--                    <div class="offset-8 col-2 offset-2">Net Amount<input type="number" name="namount" id="namount"></div>-->
+<!--                  </div>-->
                 <br><br>
 
-        
-                <button type="submit" class="btn btn-primary">Save Order</button>
-                <button type="submit" class="btn btn-primary">Print Order</button>
-        
-            </form>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function grandTotal(){
+  var total=0
+    $('[name="amount[]"]').each(function(){
+        total += parseFloat($(this).val()||0);
+    });
+    $("#grand-total").val(total);
+}
+
+// function to calculate the total quantity
+function totalQuantity(){
+  var total=0
+    $('[name="quantity[]"]').each(function(){
+        total += parseFloat($(this).val()||0);
+    });
+    $("#total-quantity").val(total);
+}
+
+$(document).ready(function() {
+    let countRows = 1;
+    let counter = 0;
+    var wrapper = $('#wrapper');
+    var addBtn = $('#add');
+// For Adding a Row
+    $('#plus').click(function(e){
+        e.preventDefault();
+        // incrementing the variables and using countRows to generate dynamic id's for each input in added row.
+        countRows++;
+        // Note: counter variable is used to calculate total number of rows starting from 0.
+        counter++;
+
+        var htmlRow = '<div class="row"><div class="col-2 col-lg-2 mb-1"> <div class="form-group"> <div class="controls"><label for="product">Product <span class="required">*</span></label><select name="product[]" maxlength="100" class="product form-control" id="product-'+countRows+'" required><option value selected>Select Product</option>{% for product in products %}<option value="{{ product.id }}">{{ product.product_name }}</option>{% endfor %}</select></div></div></div>' + '<div class="col-2 col-lg-2 mb-1"><div class="form-group"><div class="controls"><label>Events</label><select name="event[]" maxlength="100" class="event form-control"><option value selected>Select Event</option>{% for event in events %}<option value="{{ event.id }}">{{ event.event_name }}</option>{% endfor %}</select></div></div></div>' + '<div class="col-1 col-lg-1 mb-1"><div class="form-group"> <div class="controls"><label>Quantity</label><input type="number" name="quantity[]" maxlength="100" class="form-control" id="quantity-'+countRows+'"></div></div></div>' + '<div class="col-2 col-lg-2 mb-1"><div class="form-group"><div class="controls"><label>Rate</label><input type="text" name="rate[]" maxlength="100" class="form-control" id="rate-'+countRows+'" readonly></div></div></div>' + '<div class="col-2 col-lg-2 mb-1"><div class="form-group"><div class="controls"><label>Amount</label><input type="text" name="amount[]" maxlength="100" class="form-control" id="amount-'+countRows+'" readonly></div></div></div>';
+        $(wrapper).append(htmlRow);
+  })
+
+        $('body').on('change', '[name="product[]"]', function(){
+        var product_id = $(this).val();
+        var changeBox = $(this).attr("id");
+        console.log(changeBox);
+        changeBox = changeBox.slice(-1);
+            $.ajax({
+                url: '/get_product/',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    'product': product_id
+                },
+                success: function (data) {
+                    $('#rate-'+changeBox).val(data.rate)
+                    $('#quantity-'+changeBox).val(1)
+                    $('#amount-'+changeBox).val(data.rate)
+                    grandTotal();
+                    totalQuantity();
+                    },
+                error: function(error) {
+                    $('#rate-'+changeBox).val('')
+                    $('#quantity-'+changeBox).val('')
+                    $('#amount-'+changeBox).val('')
+                    $('#grand_total').val('')
+                }
+        })
+    })
+
+    $('body').on('keyup', '[name="quantity[]"]', function(){
+        var quantity = $(this).val()
+        var changeQuantity = $(this).attr("id");
+        changeQuantity = changeQuantity.slice(-1);
+        var rate = $('#rate-'+changeQuantity).val()
+        var quantity = parseInt(quantity, 10);
+        if (quantity <= 0){
+            var amount = 0
+        }
+        else{
+            var amount = rate * quantity;
+            subtotal = (Math.round(amount * 100) / 100).toFixed(2);
+            $('#amount-'+changeQuantity).val(amount);
+            grandTotal();
+            totalQuantity();
+            }
+    })
+
+        $('#create-form').submit(function(e){
+        console.log("Click");
+        e.preventDefault();
+        // initializing empty arrays
+        var products= [];
+        var quantities= [];
+        var sub_totals= [];
+        // getting the input values from each row and pushing them into each array.
+        for (var i=0; i<=counter; i++){
+        product = document.querySelectorAll('[name="product[]"]')[i].value;
+        quantity = document.querySelectorAll('[name="quantity[]"]')[i].value;
+        sub_total = document.querySelectorAll('[name="amount[]"]')[i].value;
+        products.push(product);
+        quantities.push(quantity);
+        sub_totals.push(sub_total);
+       }
+
+        $.ajax({
+            url: '/ajax_create_order/',
+            method: 'post',
+            data: {
+                product: JSON.stringify(products),
+                quantity: JSON.stringify(quantities),
+                sub_total: JSON.stringify(sub_totals),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            beforeSend: function() {
+                $("#create-order").prop('disabled', true); // disable button
+            },
+            success: function(data){
+                alert('Order Created successfully');
+                $("#create-order").prop('disabled', false); // disable button
+
+            },
+            error: function(error){
+                alert('Sorry! Order cannot be created.');
+            }
+        })
+})
+
+})
+</script>
+
+<!--            <form method="POST" enctype="multipart/form-data" action="add_order" id="invoice_form" data-cities-url={% url 'load-price' %}>-->
+
+<!--              <div class="row justify-content-end">-->
+<!--               -->
+<!--              </div>-->
+<!--                {% csrf_token %}-->
+<!--                -->
+<!--                -->
+<!--                  <table class="table">-->
+<!--                  <thead>-->
+<!--                    <tr>-->
+<!--                      <th scope="col">Product Serial Number</th>-->
+<!--                      <th scope="col">Product O ID</th>-->
+<!--                      <th scope="col">Product Name</th>-->
+<!--                      <th scope="col">Event Name</th>-->
+<!--                      <th scope="col">Quantity</th>-->
+<!--                      <th scope="col">Rate</th>-->
+<!--                      <th scope="col">Amount</th>-->
+<!--                      <th scope="col"></th>-->
+<!--                    </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody id="tbody">-->
+<!--                   -->
+<!--                    -->
+<!--                    <tr id="fields">-->
+<!--                      <td scope="row">{{forloop.counter}}</td>-->
+<!--                      <td scope="row">{{form.id}}</td>-->
+<!--                      <td scope="row">{{form.Product_id}}</td>-->
+<!--                     -->
+<!--                      <td scope="row">{{form.Event_Name}}</td>-->
+<!--                      <td>{{form.sold_Quantity}}</td>-->
+<!--                      <td>{{ form.price }}</td>-->
+<!--                      <td>{{form.total_price}}</td>-->
+<!--                      <td><a href="#" class="deleteBtn btn" id="delete" onclick="onDeleteRow(event)" >-</a></td>-->
+<!--                    </tr>-->
+<!--                    -->
+<!--                  </tbody>-->
+
+
+<!--                </table>-->
+<!--                    -->
+<!--                    -->
+<!--                  </tbody>-->
+
+
+<!--                </table>-->
+<!--                  <div class="row">-->
+<!--                    -->
+<!--                    <div class="offset-8 col-2 offset-2">Gross Amount<input type="number" name="gamount" id="gamount"></div>-->
+<!--                  </div>-->
+<!--                  <div class="row">-->
+<!--                    -->
+<!--                    <div class="offset-8 col-2 offset-2">Date {{form.date_time}}</div>-->
+<!--                  </div>-->
+<!--                  <div class="row">-->
+<!--                    <div class="offset-8 col-2 offset-2">Net Amount<input type="number" name="namount" id="namount"></div>-->
+<!--                  </div>-->
+<!--                <br><br>-->
+
+<!--        -->
+<!--                <button type="submit" class="btn btn-primary">Save Order</button>-->
+<!--                <button type="submit" class="btn btn-primary">Print Order</button>-->
+<!--        -->
+<!--            </form>-->
             </div>
         </div>
       </div>

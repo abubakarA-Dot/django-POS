@@ -11,7 +11,7 @@ from base.views.pos_view import POSView, cart_add, cart_updated, cart_remove
 from base.views.order_views import bulling_information_view, OrderItemView
 from base.views.group import startGroup,manageGroup,updateGroup,deleteGroup
 from base.views.user import startUser, manageuser, updateuser, deleteuser, user_profile
-from base.views.orderView import add_order, deleteOrder,invoice, updateOrder,viewOrder,load_price
+from base.views.orderView import *
 from base.views.product_view import (
     create_product, update_product, delete_product
 )
@@ -63,14 +63,16 @@ urlpatterns = [
     path('topSellingProduct', topSellingproduct, name='top-selling-Product'),
     path('lowSellingproduct', lowSellingproduct, name='low-selling-Product'),
     path('eventSellingproduct', eventSellingproduct, name='event-selling-Product'),
-    path('add_order', add_order, name='Add-order'),
+    # path('add_order', add_order, name='Add-order'),
     path('invoice', invoice, name='Add-order'),
     path('viewOrder', viewOrder, name='view-order'),
     path('order-update/<pk>/', updateOrder, name='order_update'),
     path('order-delete/<pk>', deleteOrder, name='order_delete'),
     path('load-price', load_price, name='load-price'),
-    
 
+    path('create_order/', create_order, name='create_order'),
+    path('get_product/', get_product, name='get_product'),
+    path('ajax_create_order/', ajax_order_create, name='ajax_create_order'),
 
 ]
 
