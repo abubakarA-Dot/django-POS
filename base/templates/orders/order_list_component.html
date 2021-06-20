@@ -26,8 +26,7 @@
                     <td>{{ obj.date_time}}</td>
                     <td class="text-center">
                         {% if perms.base.change_group %}
-                        <a class="btn btn-info btn-sm" href="/order-update/{{obj.baseentity_ptr.id}}"><i
-                                class="fa fa-pencil"></i></a>{%endif%}
+                        <a class="btn btn-info btn-sm" href="{% url 'order_update' obj.pk %}"><i class="fa fa-pencil"></i></a>{% endif %}
                         {% if perms.base.delete_group %}
                         <a class="btn btn-danger btn-sm" href="/order-delete/{{obj.baseentity_ptr.id}}"><i
                                 class="fa fa-trash"></i></a>{%endif%}

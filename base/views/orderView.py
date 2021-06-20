@@ -72,7 +72,7 @@ def ajax_order_create(request):
                 price=sub_totals_list[i],
                 quantity=quantities_list[i],
             )
-    data = {'name': 'Faizan'}
+    data = {'name': 'Abubakar'}
     return JsonResponse(data)
 
 # def add_order(request):

@@ -66,7 +66,7 @@ urlpatterns = [
     # path('add_order', add_order, name='Add-order'),
     path('invoice', invoice, name='Add-order'),
     path('viewOrder', viewOrder, name='view-order'),
-    path('order-update/<pk>/', updateOrder, name='order_update'),
+    path('order-update/<int:pk>/', updateOrder, name='order_update'),
     path('order-delete/<pk>', deleteOrder, name='order_delete'),
     path('load-price', load_price, name='load-price'),
 
