@@ -1,7 +1,7 @@
 from django.http import request
-from base.forms.invoice_form import InvoiceForm
+from base.forms.invoice_form import InvoiceForm, OrderItemForm
 from decimal import Decimal
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import HttpResponse
 from base.models.Invoice import Event
 from django.core.checks import messages
@@ -118,15 +118,19 @@ def load_price(request):
     # return JsonResponse(list(cities.values('id', 'name')), safe=False)
 
 
-def updateOrder(request,pk):
-   invoice = get_object_or_404(Invoice, pk=pk)  # baseentity_ptr
-   form = InvoiceForm(instance = invoice) 
-   if request.method == 'POST':
-       form = InvoiceForm(request.POST, instance=invoice)
-       if form.is_valid():
-        form.save()
+def updateOrder(request, pk):
+    try:
+        item = OrderItem.objects.get(id=pk)
+    except ObjectDoesNotExist:
+        item = None
+    form = OrderItemForm(instance=item)
+    if request.method == 'POST':
+        form = OrderItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
         return redirect('view-order')
-   return render(request,'orders/update_order.html',{'form':form})
+    return render(request, 'orders/update_order.html', {'form':form})
+
 
 def deleteOrder(request,pk):
     Invoice.objects.filter(baseentity_ptr=pk).delete()

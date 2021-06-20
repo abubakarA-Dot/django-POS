@@ -28,23 +28,21 @@
                   <thead>
                     <tr>
                       <th scope="col">Product Name</th>
-                      <th scope="col">Event Name</th>
+<!--                      <th scope="col">Event Name</th>-->
                       <th scope="col">Quantity</th>
                       <th scope="col">Rate</th>
                       <th scope="col">Amount</th>
-                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody id="tbody">
                    
                     
                     <tr id="fields">
-                      <td scope="row">{{form.Product_id}}</td>
-                     
-                      <td scope="row">{{form.Event_Name}}</td>
-                      <td>{{form.sold_Quantity}}</td>
-                      <td>{{ form.price }}</td>
-                      <td>{{form.total_price}}</td>
+                      {{ form.orderItem }}
+                      <td scope="row">{{form.products}}</td>
+                      <td>{{ form.quantity }}</td>
+                      <td>{{form.price}}</td>
+<!--                      <td><input type="number" name="amount" maxlength="100" class="form-control" id="amount" readonly></td>-->
                       <td><a href="#" class="deleteBtn btn" id="delete" onclick="onDeleteRow(event)" >-</a></td>
                     </tr>
                     
@@ -54,7 +52,7 @@
                 </table>
                   <div class="row">
                     
-                    <div class="offset-8 col-2 offset-2">Gross Amount<input type="number" name="gamount" id="gamount"></div>
+                    <div class="offset-8 col-2 offset-2">Gross Amount<input type="number" name="grand-total" id="grand-total"></div>
                   </div>
                   <div class="row">
                     
@@ -175,7 +173,53 @@ $("#product_name").change(function () {
         });
 
 });
-     
+
+function grandTotal(){
+  var total=0
+    total = $('#amount').val();
+    $("#grand-total").val(total);
+}
+
+$(document).ready(function() {
+$('#grand-total').val();
+  $('#id_products').change(function(e){
+    e.preventDefault();
+    product_id = $(this).val();
+                $.ajax({
+                url: '/get_product/',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    'product': product_id
+                },
+                success: function (data) {
+                    $('#id_price').val(data.rate)
+                    $('#id_quantity').val(1)
+              //      $('#amount').val(data.rate)
+                    grandTotal();
+                    },
+                error: function(error) {
+                    $('#id_price').val(data.rate)
+                    $('#id_quantity').val(1)
+                }
+        })
+    })
+      $('#id_quantity').keyup(function(){
+        var quantity = $(this).val()
+        console.log('HII')
+        var rate = $('#id_price').val()
+        var quantity = parseInt(quantity, 10);
+        if (quantity <= 0){
+            var amount = 0
+        }
+        else{
+            var amount = rate * quantity;
+            subtotal = (Math.round(amount * 100) / 100).toFixed(2);
+            $('#grand-total').val(amount);
+            }
+    })
+
+})
 </script>
 
 {% endblock %}
