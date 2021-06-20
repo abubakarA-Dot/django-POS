@@ -109,7 +109,7 @@ def invoice(request):
 def manageOrders(request):
     return render(request,'invoice/invoice.html',{'context':Invoice.objects.all()})
 def viewOrder(request):
-    return render(request,'orders/list_of_order.html',{'context':Invoice.objects.all()})
+    return render(request,'orders/list_of_order.html',{'context':OrderItem.objects.all()})
 
 def load_price(request):
     product_id = request.GET.get('product_id')

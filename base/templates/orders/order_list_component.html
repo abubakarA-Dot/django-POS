@@ -7,9 +7,9 @@
                 <th scope="col">Product O ID</th>
                 <th>Full Name</th>
                 <th>Quantity</th>
-                <th>Event Name</th>
+
                 <th>Price</th>
-                <th>Date</th>
+
 
                 {%if perms.base.delete_group or perms.base.change_group%}
                 <th class="text-center">Action</th>
@@ -19,11 +19,11 @@
                 <tr>
                     <td scope="row">{{forloop.counter}}</td>
                       <td scope="row">{{obj.id}}</td>
-                    <td>{{ obj.Product_id }}</td>
-                    <td>{{ obj.sold_Quantity }}</td>
-                    <td>{{ obj.Event_Name}}</td>
-                    <td>{{ obj.total_price }}</td>
-                    <td>{{ obj.date_time}}</td>
+                    <td>{{ obj.products }}</td>
+                    <td>{{ obj.quantity }}</td>
+                    <td>{{ obj.price}}</td>
+<!--                    <td>{{ obj.total_price }}</td>-->
+<!--                    <td>{{ obj.date_time}}</td>-->
                     <td class="text-center">
                         {% if perms.base.change_group %}
                         <a class="btn btn-info btn-sm" href="/order-update/{{obj.baseentity_ptr.id}}"><i
