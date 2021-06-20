@@ -7,15 +7,19 @@
 
     <section class="content-header">
         <h1> Dashboard <small>Order List page</small></h1>
+        <form action="{% url 'search_orders' %}" method="GET" value="{{request.GET.q}}">
+            Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Orders"/>
+            <input type="submit" name="submit" value="Search"/>
+        </form>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Order-List</li>
         </ol>
-        {%for message in messages%}
+        {% for message in messages %}
         <div class="alert alert-success" role="alert">
           {{message}}
           </div>
-          {%endfor%}
+          {% endfor %}
     </section>
 
     <div class="content">

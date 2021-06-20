@@ -1,5 +1,7 @@
+{% if final_result %}
+{% if search_button == 'Search' and request.GET.q != '' %}
 <div class="box-body">
-    {% if context %}
+    {% if final_result %}
         <table class="table table-bordered">
             <tbody>
             <tr>
@@ -17,7 +19,7 @@
                 <th class="text-center">Action</th>
                 {% endif %}
             </tr>
-            {% for obj in context %}
+            {% for obj in final_result %}
                 <tr>
                     
                     <td scope="row">{{obj.products.product_uuid}}</td>
@@ -41,6 +43,9 @@
             </tbody>
         </table>
     {% else %}
-        <h2>Order not added yet</h2>
+        <h2>No order found agains {{request.GET.q}}</h2>
     {% endif %}
 </div>
+{% endif %}
+{% endif %}
+

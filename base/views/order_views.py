@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from base.forms.order_form import OrderForm
 from base.addcart import Cart
 from django.views.generic import ListView
+from django.db.models import Q
 
 
 def bulling_information_view(request):
@@ -30,3 +31,21 @@ class OrderItemView(ListView):
     model = OrderItem
     context_object_name = 'order'
     paginate_by = 15
+
+
+def search_orders(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        search_button = request.GET.get('submit')
+        if query is not None:
+            condition =  Q(price__icontains=query) | Q(quantity__icontains=query)  
+            final_result = OrderItem.objects.filter(condition).distinct()
+            context = {
+                'final_result': final_result,
+                'search_button': search_button
+            }
+            return render(request, 'orders/search_orders.html', context)
+        else:
+            return render(request, 'orders/order_list_complonent.html')
+    else:
+        return render(request, 'orders/order_list_complonent.html')

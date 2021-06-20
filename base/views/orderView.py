@@ -14,6 +14,7 @@ from base.models.order import Order, OrderItem
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from base.forms.order_form import UpdateOrderForm
 
 
 def create_order(request):
@@ -109,7 +110,7 @@ def invoice(request):
 def manageOrders(request):
     return render(request,'invoice/invoice.html',{'context':Invoice.objects.all()})
 def viewOrder(request):
-    return render(request,'orders/list_of_order.html',{'context':Invoice.objects.all()})
+    return render(request,'orders/list_of_order.html',{'context':OrderItem.objects.all()})
 
 def load_price(request):
     product_id = request.GET.get('product_id')
@@ -119,16 +120,16 @@ def load_price(request):
 
 
 def updateOrder(request,pk):
-   invoice = get_object_or_404(Order, pk=pk)  # baseentity_ptr
-   form = InvoiceForm(instance = invoice) 
+   order_item = get_object_or_404(OrderItem, pk=pk)  # baseentity_ptr
+   form = UpdateOrderForm(instance=order_item)
    if request.method == 'POST':
-       form = InvoiceForm(request.POST, instance=invoice)
+       form = UpdateOrderForm(request.POST, instance=order_item)
        if form.is_valid():
         form.save()
         return redirect('view-order')
    return render(request,'orders/update_order.html',{'form':form})
 
 def deleteOrder(request,pk):
-    Invoice.objects.filter(baseentity_ptr=pk).delete()
+    dell = OrderItem.objects.filter(baseentity_ptr=pk).delete()
     messages.success(request,"Order Deleted Successfully")
-    return render(request,'orders/list_of_order.html',{'context':Invoice.objects.all()})
+    return render(request, 'orders/list_of_order.html', {'context': OrderItem.objects.all(), 'dell': dell})

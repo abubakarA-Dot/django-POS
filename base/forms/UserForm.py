@@ -14,7 +14,7 @@ class UpdateUserForm(forms.ModelForm):
     phn_number = forms.IntegerField()
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'phn_number',
+        fields = ['username', 'email', 'first_name', 'phn_number', 
                   'last_name']
 
         widgets = {

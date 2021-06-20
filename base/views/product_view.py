@@ -10,6 +10,7 @@ from datetime import date
 from base.models import product
 from base.models.product import Product
 from base.forms.product_form import ProductForm, UpdateProductForm
+from django.db.models import Q
 
 
 
@@ -54,6 +55,24 @@ def delete_product(request, product_id):
         product.delete()
         return redirect('product_list')
     return render(request, 'product/delete_product.html')
+
+def search_products(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        search_button = request.GET.get('submit')
+        if query is not None:
+            condition = Q(product_name__icontains=query) | Q(product_uuid__icontains=query) | Q(expiry_date__icontains=query) | Q(
+                stock__icontains=query) | Q(description__icontains=query) 
+            final_result = Product.objects.filter(condition).distinct()
+            context = {
+                'final_result':final_result,
+                'search_button': search_button
+            }
+            return render(request, 'product/search_product.html', context)
+        else:
+            return render(request, 'product/list_of_product.html')
+    else:
+        return render(request, 'product/list_of_product.html')
 
 
 

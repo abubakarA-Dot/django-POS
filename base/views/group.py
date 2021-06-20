@@ -21,7 +21,7 @@ def startGroup(request):
                     'inventoryCreate':'add inventory','inventoryUpdate':'change inventory','inventoryView':'view inventory','inventoryDelete':'delete inventory',
                     'productsCreate':'add product','productsUpdate':'change product','productsView':'view product','productsDelete':'delete product',
                     'ordersCreate':'add order','ordersUpdate':'change order','ordersView':'view order','ordersDelete':'delete order',
-                    'ordersCreate':'add order','ordersUpdate':'change order','ordersView':'view order','ordersDelete':'delete order',
+                   
                 }
         
         for key,value in checkBox.items():

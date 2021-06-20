@@ -7,6 +7,10 @@
 
     <section class="content-header">
         <h1> Dashboard <small>Product List page</small></h1>
+        <form action="{% url 'search_products' %}" method="GET" value="{{request.GET.q}}">
+            Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Products"/>
+            <input type="submit" name="submit" value="Search"/>
+        </form>
         <ol class="breadcrumb">
             <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Product-List</li>
@@ -22,6 +26,7 @@
                             <div class="col-lg-6">
                                 <h3 class="box-title">Product List</h3>
                             </div>
+                            
                             <div class="col-lg-6 text-right">
                                 <a title="Create category" data-toggle="tooltip" data-placement="left"
                                    class="btn btn-info btn-sm" href="{% url 'create_category' %}">

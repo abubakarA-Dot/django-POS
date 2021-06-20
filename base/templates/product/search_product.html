@@ -1,6 +1,8 @@
-{% if product %}
+{% if final_result %}
+{% if search_button == 'Search' and request.GET.q != '' %}
+{% if final_result %}
 <div class="box-body">
-   
+    
         <table class="table table-bordered">
             <tbody>
             <tr>
@@ -15,7 +17,7 @@
                 <th class="text-center">Action</th>
                 {% endif %}
             </tr>
-            {% for obj in product %}
+            {% for obj in final_result %}
                 <tr>
                     <td>{{ obj.product_uuid }}</td>
                     <td>{{ obj.product_name }}</td>
@@ -63,7 +65,7 @@
                 {%endif%}
             </tr>
             {% for obj in lowproduct %}
-            {%if obj.stock < 5 %}
+            {% if obj.stock < 5 %}
                 <tr>
                     <td>{{ obj.product_name }}</td>
                     <td>{{obj.category_id.category_name}}</td>
@@ -275,10 +277,16 @@
             {% endfor %}
         </tbody>
         </table>
+        
 
 
         <!-- Expire Prducts          -->
 
 </div>
 {% endif %}
+{% else %}
+<p> No query Found against {{request.GET.q}}</p>
+{% endif %}
+{% endif %}
+
 </div>

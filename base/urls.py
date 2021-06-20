@@ -8,12 +8,12 @@ from base.views.tag_view import CreateListTagView, TagDeleteView
 from base.views.product_view import  ProductListView, eventSellingproduct,lowProduct,expireProduct, lowSellingproduct, topSellingproduct
 from base.views.logout import logout_view
 from base.views.pos_view import POSView, cart_add, cart_updated, cart_remove
-from base.views.order_views import bulling_information_view, OrderItemView
+from base.views.order_views import bulling_information_view, OrderItemView, search_orders
 from base.views.group import startGroup,manageGroup,updateGroup,deleteGroup
 from base.views.user import startUser, manageuser, updateuser, deleteuser, user_profile
 from base.views.orderView import *
 from base.views.product_view import (
-    create_product, update_product, delete_product
+    create_product, update_product, delete_product, search_products
 )
 from base.views.category_view import (
     create_category, update_category, categories
@@ -40,6 +40,7 @@ urlpatterns = [
     path('create-product/', create_product, name='product_create'),
     path('update-product/<int:product_id>', update_product, name='product_update'),
     path('delete-product/<int:product_id>', delete_product, name='delete_update'),
+    path('search-products/', search_products, name='search_products'),
     path('cart/id/', cart_add, name='cart_add'),
     path('cart-update/<int:id>/', cart_updated, name='cart_updated'),
     path('cart-remove/<int:id>/', cart_remove, name='cart_remove'),
@@ -67,7 +68,8 @@ urlpatterns = [
     path('invoice', invoice, name='Add-order'),
     path('viewOrder', viewOrder, name='view-order'),
     path('order-update/<int:pk>/', updateOrder, name='order_update'),
-    path('order-delete/<pk>', deleteOrder, name='order_delete'),
+    path('order-delete/<pk>/', deleteOrder, name='order_delete'),
+    path('search-orders/', search_orders, name='search_orders'),
     path('load-price', load_price, name='load-price'),
 
     path('create_order/', create_order, name='create_order'),
