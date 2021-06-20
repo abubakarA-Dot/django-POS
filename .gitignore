@@ -5,3 +5,4 @@ media
 __pycache__
 migrations
 .DS_Store
+main.py
