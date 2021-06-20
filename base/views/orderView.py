@@ -119,7 +119,7 @@ def load_price(request):
 
 
 def updateOrder(request,pk):
-   invoice = get_object_or_404(Invoice, pk=pk)  # baseentity_ptr
+   invoice = get_object_or_404(Order, pk=pk)  # baseentity_ptr
    form = InvoiceForm(instance = invoice) 
    if request.method == 'POST':
        form = InvoiceForm(request.POST, instance=invoice)
