@@ -18,6 +18,7 @@ class Product(BaseEntity):
     description = models.TextField(max_length=500)
     stock = models.IntegerField(default=0)
     count_sold = models.IntegerField(default=0)
+    product_uuid = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
          return self.product_name

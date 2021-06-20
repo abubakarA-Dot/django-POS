@@ -19,7 +19,7 @@ from base.views.category_view import (
     create_category, update_category, categories
 )
 urlpatterns = [
-    path('login/', UserLoginView.as_view(), name='login'),
+    path('', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard, name='dashboard'),
     # path('create-category/', CategoryCreateView.as_view(), name='create_category'),

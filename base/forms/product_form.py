@@ -7,7 +7,8 @@ from base.models.product import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['product_name', 'Quantity', 'Price', 'expiry_date', 'manufactor_date', 'category_id', 'description', 'stock', 'count_sold']
+        fields = ['product_uuid', 'product_name',  'Price', 'expiry_date',
+                  'manufactor_date', 'category_id', 'description', 'stock', 'count_sold']
         # widgets = {
         #     'product_name': TextInput(attrs={'class': 'form-control', 'id': 'title', 'placeholder': 'Enter Product Name'}),
         #     'product_category': Select(attrs={'class': 'form-control', 'id': 'product_category'}),
@@ -18,5 +19,5 @@ class ProductForm(forms.ModelForm):
 class UpdateProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['product_name', 'Quantity', 'Price', 'expiry_date',
+        fields = ['product_uuid', 'product_name', 'Quantity', 'Price', 'expiry_date',
                   'manufactor_date', 'category_id', 'description', 'stock', 'count_sold']
