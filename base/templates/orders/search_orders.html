@@ -1,3 +1,8 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+{% include 'orders/page_header.html' %}
 {% if final_result %}
 {% if search_button == 'Search' and request.GET.q != '' %}
 <div class="box-body">
@@ -49,3 +54,4 @@
 {% endif %}
 {% endif %}
 
+{% endblock %}
