@@ -13,8 +13,8 @@ from base.models.order import Order
 from base.models.tag import Tag
 from base.models.inventory import Inventory
 from django.contrib.auth.models import Group
-
-
+from base.views.decorators import unauthenticated_user
+@login_required(login_url='login')
 def Dashboard(request):
     users = User.objects.all()
     category = Category.objects.all()

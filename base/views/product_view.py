@@ -39,7 +39,7 @@ def update_product(request, product_id):
     product_model = get_object_or_404(Product, id=product_id)
     update_product_form = UpdateProductForm(instance=product_model)
     if request.method == 'POST':
-        update_product_form = ProductForm(request.POST, instance=product_model)
+        update_product_form = UpdateProductForm(request.POST, instance=product_model)
         if update_product_form.is_valid():
             update_product_form.save()
             return redirect('product_list')

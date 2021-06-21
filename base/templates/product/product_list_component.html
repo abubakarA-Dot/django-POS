@@ -8,7 +8,10 @@
                 <th>Product Name</th>
                 <th>Product Category</th>
                 <th>Price</th>
+                <th>Manufacturing Date</th>
                 <th>Expire Date</th>
+                <th>Added on date</th>
+                <th>Description</th>
                 <th>Stock</th>
                 
                 {% if perms.base.add_product or perms.base.change_product %}
@@ -21,7 +24,10 @@
                     <td>{{ obj.product_name }}</td>
                     <td>{{ obj.category_id.category_name}}</td>
                     <td>{{ obj.Price }}</td>
+                    <td>{{ obj.manufactor_date}}</td>
                     <td>{{ obj.expiry_date}}</td>
+                    <td>{{ obj.datetime}}</td>
+                    <td>{{ obj.description}}</td>
                     <td>{{ obj.stock }}</td>                  
                     <td>
                         {% if not obj.product_image %}

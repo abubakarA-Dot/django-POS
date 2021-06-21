@@ -19,7 +19,7 @@ from base.views.category_view import (
     create_category, update_category, categories
 )
 urlpatterns = [
-    path('', UserLoginView.as_view(), name='login'),
+    path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('dashboard/', Dashboard, name='dashboard'),
     # path('create-category/', CategoryCreateView.as_view(), name='create_category'),
@@ -75,7 +75,4 @@ urlpatterns = [
     path('create_order/', create_order, name='create_order'),
     path('get_product/', get_product, name='get_product'),
     path('ajax_create_order/', ajax_order_create, name='ajax_create_order'),
-
 ]
-
-

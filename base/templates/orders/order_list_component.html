@@ -7,6 +7,7 @@
                 <th scope="col">Product Key</th>
                 <th scope="col">Primery Key</th>
                 <th scope="col">Order Key</th>
+                <th scope="col">Event Name</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Stock</th>
 
@@ -23,6 +24,7 @@
                     <td scope="row">{{obj.products.product_uuid}}</td>
                     <td scope="row">{{obj.id}}</td>
                     <td scope="row">{{obj.orderItem.id}}</td>
+                    <td scope="row">{{obj.event_name.event_name}}</td>
                     <td>{{ obj.products }}</td>
                     <td>{{ obj.quantity }}</td>
                     <td>{{ obj.price}}</td>
