@@ -51,7 +51,7 @@ def update_category(request, cat_id):
 #     model = Category
 #     context_object_name = 'category'
 #     paginate_by = 10
-
+@login_required(login_url='login')
 def categories(request):
     all_categories = Category.objects.all()
     cat_count = all_categories.count()

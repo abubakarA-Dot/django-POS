@@ -11,6 +11,7 @@ from base.models import product
 from base.models.product import Product
 from base.forms.product_form import ProductForm, UpdateProductForm
 from django.db.models import Q
+from base.models.category import Category
 
 
 
@@ -21,8 +22,9 @@ from django.db.models import Q
 #     form_class = ProductForm
 #     success_message = 'Product has been created'
 #     success_url = '/product_list/'
-
+@login_required(login_url='login')
 def create_product(request):
+    all_categories = Category.objects.all()
     product_form = ProductForm()
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
@@ -30,11 +32,12 @@ def create_product(request):
             product_form.save()
             return redirect('product_list')
     context = {
-        "productForm": product_form
+        "productForm": product_form,
+        'all_categories':all_categories
     }
     return render(request, 'product/add_product.html', context)
 
-
+@login_required(login_url='login')
 def update_product(request, product_id):
     product_model = get_object_or_404(Product, id=product_id)
     update_product_form = UpdateProductForm(instance=product_model)
@@ -48,14 +51,14 @@ def update_product(request, product_id):
     }
     return render(request, 'product/update_product.html', context)
 
-
+@login_required(login_url='login')
 def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
         product.delete()
         return redirect('product_list')
     return render(request, 'product/delete_product.html')
-
+@login_required(login_url='login')
 def search_products(request):
     if request.method == 'GET':
         query = request.GET.get('q')
@@ -95,15 +98,19 @@ def expireProduct(request):
     return render(request, 'product/list_of_product.html',{'expireProducts':x})
 
 
-
+@login_required(login_url='login')
 def lowProduct(request):
     return render(request, 'product/list_of_product.html',{'lowproduct':Product.objects.order_by('stock').all()})
 
+@login_required(login_url='login')
 def topSellingproduct(request):
     return render(request, 'product/list_of_product.html',{'topSellingproduct':Product.objects.all().order_by('-count_sold')[:10] })
+
+@login_required(login_url='login')   
 def lowSellingproduct(request):
     return render(request, 'product/list_of_product.html',{'lowSellingproduct':Product.objects.all().order_by('count_sold')[:10] })
 
+@login_required(login_url='login')
 def eventSellingproduct(request):
     
     if request.method == "POST":

@@ -4,8 +4,9 @@ from base.forms.order_form import OrderForm
 from base.addcart import Cart
 from django.views.generic import ListView
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='login')
 def bulling_information_view(request):
     cart = Cart(request)
     if request.method == 'POST':
@@ -32,7 +33,7 @@ class OrderItemView(ListView):
     context_object_name = 'order'
     paginate_by = 15
 
-
+@login_required(login_url='login')
 def search_orders(request):
     if request.method == 'GET':
         query = request.GET.get('q')

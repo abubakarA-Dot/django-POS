@@ -38,6 +38,7 @@ class InventoryDetailView(DetailView):
     context_object_name = 'inventory'
 
 
+@method_decorator(login_required(login_url='/login/'), name='dispatch')
 class InventoryUpdateView(UpdateView):
     template_name = 'inventory/create_inventory.html'
     model = Inventory

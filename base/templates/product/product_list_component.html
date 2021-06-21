@@ -29,14 +29,14 @@
                     <td>{{ obj.datetime}}</td>
                     <td>{{ obj.description}}</td>
                     <td>{{ obj.stock }}</td>                  
-                    <td>
+                    <!-- <td>
                         {% if not obj.product_image %}
                             <div class="image_not_found"><i class="fa fa-desktop"></i></div>
                         {% else %}
                             <img width="40px" height="15" src="/media/{{ obj.product_image }}"
                                  alt="category image">
                         {% endif %}
-                    </td>
+                    </td> -->
                         
                     <td class="text-center">
                         {% if perms.base.change_product %}

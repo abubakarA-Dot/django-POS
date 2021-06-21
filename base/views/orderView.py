@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from base.forms.order_form import UpdateOrderForm
+from django.contrib.auth.decorators import login_required
 
 
 def create_order(request):
@@ -107,6 +108,7 @@ def ajax_order_create(request):
 
 def invoice(request):
     return render(request,'invoice/invoice.html',{'context':Invoice.objects.all()})
+@login_required(login_url='login')
 def manageOrders(request):
     return render(request,'invoice/invoice.html',{'context':Invoice.objects.all()})
 def viewOrder(request):
@@ -118,7 +120,7 @@ def load_price(request):
     return render(request, 'orders/price.html', {'prices': price})
     # return JsonResponse(list(cities.values('id', 'name')), safe=False)
 
-
+@login_required(login_url='login')
 def updateOrder(request,pk):
    order_item = get_object_or_404(OrderItem, pk=pk)  # baseentity_ptr
    form = UpdateOrderForm(instance=order_item)
@@ -128,7 +130,8 @@ def updateOrder(request,pk):
         form.save()
         return redirect('view-order')
    return render(request,'orders/update_order.html',{'form':form})
-
+   
+@login_required(login_url='login')
 def deleteOrder(request,pk):
     dell = OrderItem.objects.filter(baseentity_ptr=pk).delete()
     messages.success(request,"Order Deleted Successfully")

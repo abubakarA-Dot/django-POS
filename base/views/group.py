@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import Group,Permission
 from django.contrib import messages
 from base.forms.group_form import UpdateGroupForm
+from django.contrib.auth.decorators import login_required
 
 
 def startGroup(request):
@@ -46,7 +47,7 @@ def startGroup(request):
         
         return render(request,'groups/list_of_group.html',{'group':Group.objects.all(),'message':'Group Added Successfully'})
     return render(request,'groups/add_group.html')  
-
+@login_required(login_url='login')
 def manageGroup(request):
     return render(request,'groups/list_of_group.html',{'group':Group.objects.all()})
 

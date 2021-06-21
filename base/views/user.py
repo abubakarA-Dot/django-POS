@@ -5,6 +5,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import Group,Permission,User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -25,7 +26,7 @@ def startUser(request):
        return redirect('/manageuser') 
         
     return render(request,'users/add_user.html',{'groups':Group.objects.all(),'form':form})
-
+@login_required(login_url='login')
 def manageuser(request):
     user = User.objects.filter(username='test123')
     users = User.objects.all()
