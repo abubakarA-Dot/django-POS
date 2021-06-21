@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Add New Group|| Inventory {% endblock %}
+{% block title %} Update Group|| Inventory {% endblock %}
 
 {% block content %}
 {% include 'groups/page_header.html' %}
@@ -16,42 +16,40 @@
             <div class="row py-1">
               <h3 class="box-title">Add Groups</h3> <br>
             </div>
-            <form method="POST" enctype="multipart/form-data" action="/add_group/">
-              {%csrf_token%}
+            <form method="POST" enctype="multipart/form-data" >
+              {% csrf_token %}
               <label for="fname" class="col-sm-2 col-form-label col-form-label-sm font-weight-bold">Group Name</label>
-              <input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" name="groupName">
+              <input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" name="groupName" value=''>
+              <div class="form-control">
+                  {{group.name}}
+              </div>
+              
+              
 
           </div>
           <br>
         </div>
         <div class="box-body">
 
-          {{form.errors}}
+          {{group.errors}}
           <table class="table font-weight-normal">
             <thead>
               <tr>
-                <th scope="col">Permission</th>
-                <th scope="col">Create</th>
-                <th scope="col">Update</th>
-                <th scope="col">Veiw</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Group</th>
+                <th scope="col">Permissions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">User</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userView"> </td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="userCreate">{{group.permissions}}</td>
+  
               </tr>
 
               <tr>
                 <th scope="row">Groups</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="groupCreate">{{group.permissions}}</td>
+   
               </tr>
               <tr>
               <!-- <tr>
@@ -64,10 +62,7 @@
               <tr>
               <tr>
                 <th scope="row">Category</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="categoryCreate">{{group.permissions}}</td>
               </tr>
               <tr>
               <!-- <tr>
@@ -88,18 +83,13 @@
               <tr>
               <tr>
                 <th scope="row">Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="productsCreate">{{group.permissions}}</td>
               </tr>
               <tr>
               <tr>
                 <th scope="row">Orders</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="ordersCreate">{{group.permissions}}</td>
+  
               </tr>
               <tr>
               <!-- <tr>
@@ -120,54 +110,40 @@
               <tr>
               <tr>
                 <th scope="row">Profile</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="profileCreate">{{group.permissions}}</td>
+                
               </tr>
               <tr>
               <tr>
                 <th scope="row">Top Selling Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="sellCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="sellUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="sellView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="sellDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="sellCreate">{{group.permissions}}</td>
+                
               </tr>
                <tr>
                 <th scope="row">Low Selling Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowCreate">{{group.permissions}}</td>
+                
               </tr>
               <tr>
                  <tr>
                 <th scope="row">Event Selling Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="eventCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="eventUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="eventView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="eventDelete"></td>
-              </tr>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="eventCreate">{{group.permissions}}</td>
               <tr>
                  <tr>
                 <th scope="row">Low Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowpCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowpUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowpView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowpDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="lowpCreate">{{group.permissions}}</td>
+  
               </tr>
               <tr>
                  <tr>
                 <th scope="row">Expirey Products</th>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="exCreate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="exUpdate"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="exView"></td>
-                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="exDelete"></td>
+                <td> <input type="checkbox" aria-label="Checkbox for following text input" name="exCreate">{{group.permissions}}</td>
+                
               </tr>
 
             </tbody>
           </table>
-          <button type="submit" class="btn btn-info"> Add Group</button>
+          <button type="submit" class="btn btn-info"> Update Group</button>
           <button type="submit" class="btn btn-warning"> Back</button>
 
 

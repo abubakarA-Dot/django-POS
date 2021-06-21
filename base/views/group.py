@@ -51,14 +51,15 @@ def manageGroup(request):
     return render(request,'groups/list_of_group.html',{'group':Group.objects.all()})
 
 def updateGroup(request,group_id):
-    group_object = get_object_or_404(Group, pk=group_id)
+    group_object = get_object_or_404(Group, id=group_id)
     group_form = UpdateGroupForm(instance = group_object)
     if request.method == 'POST':
+        
         group_form = UpdateGroupForm(request.POST,instance=group_object)
         if group_form.is_valid():
             group_form.save()
             return redirect('manageGroup')
-    return render(request, "groups/update_group.html", {'form':group_form})
+    return render(request, "groups/update_group.html", {'group': group_form})
 
 def deleteGroup(request,pk):
     Group.objects.filter(name=pk).delete()
